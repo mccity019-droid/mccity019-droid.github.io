@@ -1,103 +1,105 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>MC City | FiveM Server</title>
-
+<title>متجر سيارات MC</title>
 <style>
-* {
-  box-sizing: border-box;
-  font-family: Tahoma, Arial;
-}
-
-body {
-  margin: 0;
-  background: #0b1220;
-  color: #e5e7eb;
-}
-
-header {
-  background: linear-gradient(135deg,#020617,#020617cc),
-              url('https://images.unsplash.com/photo-1549921296-3ecf7f7a5f6f');
-  background-size: cover;
-  padding: 80px 20px;
-  text-align: center;
-}
-
-header h1 {
-  font-size: 42px;
-  margin-bottom: 10px;
-}
-
-header p {
-  font-size: 18px;
-  color: #cbd5f5;
-}
-
-.btn {
-  display: inline-block;
-  margin: 10px;
-  padding: 12px 30px;
-  background: #2563eb;
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
-}
-
-section {
-  padding: 60px 10%;
-}
-
-h2 {
-  border-right: 4px solid #2563eb;
-  padding-right: 10px;
-  margin-bottom: 30px;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 20px;
-}
-
-.card {
-  background: #020617;
-  padding: 20px;
-  border-radius: 12px;
-}
-
-footer {
-  background: #020617;
-  text-align: center;
-  padding: 20px;
-  color: #94a3b8;
-}
+  body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+  button { padding: 10px 20px; margin: 10px; cursor: pointer; }
+  #user-info { margin-top: 20px; }
+  #car-preview img { width: 200px; margin-top: 10px; border-radius: 10px; }
+  select { padding: 5px 10px; margin-top: 10px; }
 </style>
 </head>
-
 <body>
 
-<header>
-  <h1>MC City RP</h1>
-  <p>MC CFW</p>
-  <a class="btn" href="https://discord.gg/Y22vqz4y">دخول الدسكورد</a>
- 
-</header>
+<h1>متجر سيارات السيرفر</h1>
 
-<section>
-  <h2>🚗 أسعار السيارات</h2>
-  <div class="cards">
-    <div class="card">BMW M5<br>50$</div>
-    <div class="card">nissan gtr<br>30$</div>
-    <div class="card">porsche<br>15$</div>
-  </div>
-</section>
+<button id="login-btn">تسجيل دخول بالديسكورد</button>
 
-<section>
-  <h2>👥 الإدارة</h2>
-  <div class="cards">
-    <div class="card">المؤسس<br>Hussein</div>
-     <div class="card">المؤسس<br>Ridha</div>
-    <div class="card">المبرمج<br>MC Dev abu 3atab</div>
-    <div class="card">الإدارة<br>clan banipal</div>
-  </div>
+<div id="user-info" style="display:none;">
+  <p id="username"></p>
+  
+  <select id="car-select">
+    <option value="">اختر السيارة</option>
+    <option value="سيارة A" data-img="https://i.ibb.co/7vVbR1G/car1.jpg">سيارة A</option>
+    <option value="سيارة B" data-img="https://i.ibb.co/3WbFG7g/car2.jpg">سيارة B</option>
+    <option value="سيارة C" data-img="https://i.ibb.co/Yc5QZ7r/car3.jpg">سيارة C</option>
+    <option value="سيارة D" data-img="https://i.ibb.co/1Rx9s7H/car4.jpg">سيارة D</option>
+    <option value="سيارة E" data-img="https://i.ibb.co/8X8c5T6/car5.jpg">سيارة E</option>
+  </select>
+  
+  <div id="car-preview"></div>
+  <button id="order-btn">طلب السيارة</button>
+</div>
+
+<script>
+const CLIENT_ID = '1462902207329468562';
+const REDIRECT_URI = 'https://mccity019-droid.github.io/#apply';
+const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1462906362995675269/dpM3M1eBzKaA3839W-2wQJ1KAsN9GfGu-zuvzxKp32ZqyiLG2AAEHDdOqS6JEh7NzfHj';
+
+// تسجيل دخول ديسكورد
+document.getElementById('login-btn').onclick = () => {
+    const url = https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify;
+    window.location.href = url;
+}
+
+// التحقق من الـtoken بعد إعادة التوجيه
+window.onload = () => {
+    const hash = window.location.hash;
+    if(hash) {
+        const params = new URLSearchParams(hash.substring(1));
+        const token = params.get('access_token');
+        if(token) fetchDiscordUser(token);
+    }
+}
+
+// جلب بيانات المستخدم
+function fetchDiscordUser(token) {
+    fetch('https://discord.com/api/users/@me', {
+        headers: { Authorization: Bearer ${token} }
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById('login-btn').style.display = 'none';
+        document.getElementById('user-info').style.display = 'block';
+        document.getElementById('username').innerText = مرحباً، ${data.username}#${data.discriminator};
+    });
+}
+
+// عرض صورة السيارة المختارة
+document.getElementById('car-select').onchange = function() {
+    const selected = this.options[this.selectedIndex];
+    const imgUrl = selected.getAttribute('data-img');
+    if(imgUrl){
+        document.getElementById('car-preview').innerHTML = <p>${selected.value}</p><img src="${imgUrl}" alt="${selected.value}">;
+    } else {
+        document.getElementById('car-preview').innerHTML = '';
+    }
+}
+
+// إرسال الطلب عبر Webhook
+document.getElementById('order-btn').onclick = () => {
+    const select = document.getElementById('car-select');
+    const car = select.value;
+    const imgUrl = select.options[select.selectedIndex].getAttribute('data-img');
+    if(!car) return alert('اختر السيارة أولاً');
+    
+    fetch(DISCORD_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+            content: تم طلب سيارة جديدة:\n- المستخدم: ${document.getElementById('username').innerText}\n- السيارة: ${car},
+            embeds: [
+                {
+                    title: car,
+                    image: { url: imgUrl }
+                }
+            ]
+        })
+    }).then(() => alert('تم إرسال الطلب بنجاح!'));
+}
+</script>
+
+</body>
+</html>
