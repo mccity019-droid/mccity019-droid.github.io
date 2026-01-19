@@ -96,7 +96,7 @@ function fetchDiscordUser(token) {
 }
 
 // إرسال الطلب عند الضغط على أي زر سيارة
-document.querySelectorAll('.order-btn').forEach((btn, index) => {
+document.querySelectorAll('.order-btn').forEach((btn) => {
     btn.onclick = () => {
         const carName = btn.getAttribute('data-name');
         const imgInput = btn.parentElement.querySelector('.img-input');
