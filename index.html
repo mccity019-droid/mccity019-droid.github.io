@@ -2,59 +2,95 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>متجر سيارات Mc </title>
+<title>متجر سيارات السيرفر</title>
+
 <style>
-  body { font-family: Arial, sans-serif; text-align: center; margin: 30px; background: #f5f5f5; }
-  h1 { color: #333; }
-  button { padding: 12px 25px; margin: 10px; cursor: pointer; font-size: 16px; border-radius: 6px; border: none; background: #5865F2; color: white; transition: 0.3s; }
-  button:hover { background: #4752c4; }
-  #user-info { margin-top: 20px; }
-  #cars-container { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px; gap: 20px; }
-  .car-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 200px; text-align: center; }
-  .car-card img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
-  #message { margin-top: 20px; font-weight: bold; color: green; }
-  input[type="text"] { padding: 5px; width: 180px; margin-top: 5px; }
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  text-align: center;
+  padding: 30px;
+}
+
+button {
+  background: #5865F2;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #4752c4;
+}
+
+#cars {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.car {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  width: 200px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.car img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 6px;
+  margin-top: 6px;
+}
+
+#message {
+  margin-top: 20px;
+  font-weight: bold;
+  color: green;
+}
 </style>
 </head>
+
 <body>
 
-<h1>متجر سيارات Mc </h1>
+<h1>متجر سيارات السيرفر</h1>
 
-<button id="login-btn">سجل دخولك بالديسكورد</button>
+<button id="login-btn">تسجيل دخول بالديسكورد</button>
 
-<div id="user-info" style="display:none;">
+<div id="user-area" style="display:none;">
   <p id="username"></p>
 
-  <div id="cars-container">
-    <div class="car-card">
-      <img src="https://i.ibb.co/7vVbR1G/car1.jpg" alt="سيارة A">
+  <div id="cars">
+    <div class="car">
+      <img src="https://i.ibb.co/7vVbR1G/car1.jpg">
       <p>سيارة A</p>
-      <input type="text" class="img-input" value="https://i.ibb.co/7vVbR1G/car1.jpg">
+      <input class="img-input" value="https://i.ibb.co/7vVbR1G/car1.jpg">
       <button class="order-btn" data-name="سيارة A">طلب السيارة</button>
     </div>
-    <div class="car-card">
-      <img src="https://i.ibb.co/3WbFG7g/car2.jpg" alt="سيارة B">
+
+    <div class="car">
+      <img src="https://i.ibb.co/3WbFG7g/car2.jpg">
       <p>سيارة B</p>
-      <input type="text" class="img-input" value="https://i.ibb.co/3WbFG7g/car2.jpg">
+      <input class="img-input" value="https://i.ibb.co/3WbFG7g/car2.jpg">
       <button class="order-btn" data-name="سيارة B">طلب السيارة</button>
     </div>
-    <div class="car-card">
-      <img src="https://i.ibb.co/Yc5QZ7r/car3.jpg" alt="سيارة C">
+
+    <div class="car">
+      <img src="https://i.ibb.co/Yc5QZ7r/car3.jpg">
       <p>سيارة C</p>
-      <input type="text" class="img-input" value="https://i.ibb.co/Yc5QZ7r/car3.jpg">
+      <input class="img-input" value="https://i.ibb.co/Yc5QZ7r/car3.jpg">
       <button class="order-btn" data-name="سيارة C">طلب السيارة</button>
-    </div>
-    <div class="car-card">
-      <img src="https://i.ibb.co/1Rx9s7H/car4.jpg" alt="سيارة D">
-      <p>سيارة D</p>
-      <input type="text" class="img-input" value="https://i.ibb.co/1Rx9s7H/car4.jpg">
-      <button class="order-btn" data-name="سيارة D">طلب السيارة</button>
-    </div>
-    <div class="car-card">
-      <img src="https://i.ibb.co/8X8c5T6/car5.jpg" alt="سيارة E">
-      <p>سيارة E</p>
-      <input type="text" class="img-input" value="https://i.ibb.co/8X8c5T6/car5.jpg">
-      <button class="order-btn" data-name="سيارة E">طلب السيارة</button>
     </div>
   </div>
 
@@ -62,67 +98,75 @@
 </div>
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+
 const CLIENT_ID = '1462902207329468562';
 const REDIRECT_URI = 'https://mccity019-droid.github.io/';
-const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1462906362995675269/dpM3M1eBzKaA3839W-2wQJ1KAsN9GfGu-zuvzxKp32ZqyiLG2AAEHDdOqS6JEh7NzfHj';
+const WEBHOOK = 'https://discord.com/api/webhooks/1462906362995675269/dpM3M1eBzKaA3839W-2wQJ1KAsN9GfGu-zuvzxKp32ZqyiLG2AAEHDdOqS6JEh7NzfHj';
 
-let userHasOrdered = false;
-  
-// تسجيل دخول Discord
-document.getElementById('login-btn').onclick = () => {
-    const url = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
-    window.location.href = url;
+let ordered = false;
+
+// زر تسجيل الدخول
+document.getElementById("login-btn").onclick = function () {
+  location.href =
+    "https://discord.com/api/oauth2/authorize" +
+    "?client_id=" + CLIENT_ID +
+    "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) +
+    "&response_type=token" +
+    "&scope=identify";
+};
+
+// قراءة التوكن
+if (location.hash) {
+  const params = new URLSearchParams(location.hash.substring(1));
+  const token = params.get("access_token");
+  if (token) getUser(token);
 }
 
-// بعد إعادة التوجيه
-window.onload = () => {
-    const hash = window.location.hash;
-    if(hash) {
-        const params = new URLSearchParams(hash.substring(1));
-        const token = params.get('access_token');
-        if(token) fetchDiscordUser(token);
+function getUser(token) {
+  fetch("https://discord.com/api/users/@me", {
+    headers: { Authorization: "Bearer " + token }
+  })
+  .then(r => r.json())
+  .then(user => {
+    document.getElementById("login-btn").style.display = "none";
+    document.getElementById("user-area").style.display = "block";
+    document.getElementById("username").innerText =
+      "مرحباً " + user.username + "#" + user.discriminator;
+  });
+}
+
+// أزرار الطلب
+document.querySelectorAll(".order-btn").forEach(btn => {
+  btn.onclick = function () {
+
+    if (ordered) {
+      document.getElementById("message").innerText =
+        "تم إرسال طلبك مسبقًا، أكمل الإجراءات داخل الديسكورد.";
+      return;
     }
-}
 
-// جلب بيانات المستخدم
-function fetchDiscordUser(token) {
-    fetch('https://discord.com/api/users/@me', {
-        headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById('login-btn').style.display = 'none';
-        document.getElementById('user-info').style.display = 'block';
-        document.getElementById('username').innerText = `مرحباً، ${data.username}#${data.discriminator}`;
+    const car = btn.dataset.name;
+    const img = btn.parentElement.querySelector(".img-input").value;
+
+    fetch(WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        content:
+          "طلب سيارة جديد\n" +
+          "المستخدم: " + document.getElementById("username").innerText +
+          "\nالسيارة: " + car,
+        embeds: [{ title: car, image: { url: img } }]
+      })
+    }).then(() => {
+      ordered = true;
+      document.getElementById("message").innerText =
+        "تم إرسال الطلب بنجاح، راجع الديسكورد.";
     });
-}
+  };
+});
 
-// إرسال الطلب عند الضغط على أي زر سيارة
-document.querySelectorAll('.order-btn').forEach((btn) => {
-    btn.onclick = () => {
-        const carName = btn.getAttribute('data-name');
-        const imgInput = btn.parentElement.querySelector('.img-input');
-        const carImg = imgInput.value.trim();
-        if(!carImg) return alert('يجب وضع رابط صورة للسيارة!');
-
-if(userHasOrdered) {
-    document.getElementById('message').innerText = لقد أرسلت طلب سابقاً، لا يمكنك إرسال أكثر من طلب.;
-    return;
-}
-              fetch(DISCORD_WEBHOOK, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                content: `تم طلب سيارة جديدة:\n- المستخدم: ${document.getElementById('username').innerText}\n- السيارة: ${carName}`,
-                embeds: [
-                    { title: carName, image: { url: carImg } }
-                ]
-            })
-        }).then(() => {
-            document.getElementById('message').innerText = `تم إرسال طلب ${carName} بنجاح!`;
-            userHasOrdered = true;
-       });
-    }
 });
 </script>
 
