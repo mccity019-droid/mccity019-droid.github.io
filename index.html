@@ -5,170 +5,203 @@
 <title>متجر سيارات السيرفر</title>
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
-  text-align: center;
-  padding: 30px;
+* {
+  box-sizing: border-box;
 }
 
-button {
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* رأس الصفحة */
+header {
+  padding: 25px;
+  text-align: center;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+/* زر الدخول */
+#login-btn {
+  margin-top: 20px;
+  padding: 14px 30px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
   background: #5865F2;
   color: white;
-  border: none;
-  padding: 12px 20px;
-  margin: 10px;
-  font-size: 16px;
-  border-radius: 6px;
   cursor: pointer;
 }
 
-button:hover {
+#login-btn:hover {
   background: #4752c4;
 }
 
-#cars {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 30px;
+/* منطقة المستخدم */
+#user-area {
+  display: none;
+  padding: 30px;
 }
 
+#username {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+/* شبكة السيارات */
+#cars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* بطاقة السيارة */
 .car {
-  background: white;
+  background: rgba(255,255,255,0.08);
+  border-radius: 15px;
   padding: 15px;
-  border-radius: 10px;
-  width: 200px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.car:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
 .car img {
   width: 100%;
-  border-radius: 8px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
-input {
+.car h3 {
+  margin: 12px 0 5px;
+  text-align: center;
+}
+
+.car input {
   width: 100%;
+  margin-top: 8px;
   padding: 6px;
-  margin-top: 6px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
 }
 
+.car button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background: #00c6ff;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.car button:hover {
+  opacity: 0.9;
+}
+
+/* رسالة */
 #message {
-  margin-top: 20px;
-  font-weight: bold;
-  color: green;
+  text-align: center;
+  margin-top: 25px;
+  font-size: 16px;
+  color: #7CFF7C;
 }
 </style>
 </head>
 
 <body>
 
-<h1>متجر سيارات السيرفر</h1>
+<header>
+  <h1>متجر سيارات السيرفر</h1>
+  <button id="login-btn">تسجيل دخول عبر Discord</button>
+</header>
 
-<button id="login-btn">تسجيل دخول بالديسكورد</button>
-
-<div id="user-area" style="display:none;">
+<div id="user-area">
   <p id="username"></p>
 
   <div id="cars">
+
+    <!-- سيارة A -->
     <div class="car">
       <img src="https://i.ibb.co/7vVbR1G/car1.jpg">
-      <p>سيارة A</p>
+      <h3>سيارة A</h3>
       <input class="img-input" value="https://i.ibb.co/7vVbR1G/car1.jpg">
       <button class="order-btn" data-name="سيارة A">طلب السيارة</button>
     </div>
 
+    <!-- B -->
     <div class="car">
       <img src="https://i.ibb.co/3WbFG7g/car2.jpg">
-      <p>سيارة B</p>
+      <h3>سيارة B</h3>
       <input class="img-input" value="https://i.ibb.co/3WbFG7g/car2.jpg">
       <button class="order-btn" data-name="سيارة B">طلب السيارة</button>
     </div>
 
+    <!-- C -->
     <div class="car">
       <img src="https://i.ibb.co/Yc5QZ7r/car3.jpg">
-      <p>سيارة C</p>
+      <h3>سيارة C</h3>
       <input class="img-input" value="https://i.ibb.co/Yc5QZ7r/car3.jpg">
       <button class="order-btn" data-name="سيارة C">طلب السيارة</button>
     </div>
+
+    <!-- D -->
+    <div class="car">
+      <img src="https://i.ibb.co/1Rx9s7H/car4.jpg">
+      <h3>سيارة D</h3>
+      <input class="img-input" value="https://i.ibb.co/1Rx9s7H/car4.jpg">
+      <button class="order-btn" data-name="سيارة D">طلب السيارة</button>
+    </div>
+
+    <!-- E -->
+    <div class="car">
+      <img src="https://i.ibb.co/8X8c5T6/car5.jpg">
+      <h3>سيارة E</h3>
+      <input class="img-input" value="https://i.ibb.co/8X8c5T6/car5.jpg">
+      <button class="order-btn" data-name="سيارة E">طلب السيارة</button>
+    </div>
+
+    <!-- F -->
+    <div class="car">
+      <img src="https://i.ibb.co/9c1Fz6y/car6.jpg">
+      <h3>سيارة F</h3>
+      <input class="img-input" value="https://i.ibb.co/9c1Fz6y/car6.jpg">
+      <button class="order-btn" data-name="سيارة F">طلب السيارة</button>
+    </div>
+
+    <!-- G -->
+    <div class="car">
+      <img src="https://i.ibb.co/2q6JZ1r/car7.jpg">
+      <h3>سيارة G</h3>
+      <input class="img-input" value="https://i.ibb.co/2q6JZ1r/car7.jpg">
+      <button class="order-btn" data-name="سيارة G">طلب السيارة</button>
+    </div>
+
   </div>
 
   <div id="message"></div>
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-const CLIENT_ID = '1462902207329468562';
-const REDIRECT_URI = 'https://mccity019-droid.github.io/';
-const WEBHOOK = 'https://discord.com/api/webhooks/1462906362995675269/dpM3M1eBzKaA3839W-2wQJ1KAsN9GfGu-zuvzxKp32ZqyiLG2AAEHDdOqS6JEh7NzfHj';
-
-let ordered = false;
-
-// زر تسجيل الدخول
-document.getElementById("login-btn").onclick = function () {
-  location.href =
-    "https://discord.com/api/oauth2/authorize" +
-    "?client_id=" + CLIENT_ID +
-    "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) +
-    "&response_type=token" +
-    "&scope=identify";
-};
-
-// قراءة التوكن
-if (location.hash) {
-  const params = new URLSearchParams(location.hash.substring(1));
-  const token = params.get("access_token");
-  if (token) getUser(token);
-}
-
-function getUser(token) {
-  fetch("https://discord.com/api/users/@me", {
-    headers: { Authorization: "Bearer " + token }
-  })
-  .then(r => r.json())
-  .then(user => {
-    document.getElementById("login-btn").style.display = "none";
-    document.getElementById("user-area").style.display = "block";
-    document.getElementById("username").innerText =
-      "مرحباً " + user.username + "#" + user.discriminator;
-  });
-}
-
-// أزرار الطلب
-document.querySelectorAll(".order-btn").forEach(btn => {
-  btn.onclick = function () {
-
-    if (ordered) {
-      document.getElementById("message").innerText =
-        "تم إرسال طلبك مسبقًا، أكمل الإجراءات داخل الديسكورد.";
-      return;
-    }
-
-    const car = btn.dataset.name;
-    const img = btn.parentElement.querySelector(".img-input").value;
-
-    fetch(WEBHOOK, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        content:
-          "طلب سيارة جديد\n" +
-          "المستخدم: " + document.getElementById("username").innerText +
-          "\nالسيارة: " + car,
-        embeds: [{ title: car, image: { url: img } }]
-      })
-    }).then(() => {
-      ordered = true;
-      document.getElementById("message").innerText =
-        "تم إرسال الطلب بنجاح، راجع الديسكورد.";
-    });
-  };
-});
-
-});
-</script>
 
 </body>
 </html>
