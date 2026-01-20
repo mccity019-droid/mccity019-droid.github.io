@@ -2,121 +2,83 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title> MC متجر سيارات </title>
-
-<!-- أيقونات -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<title>متجر سيارات السيرفر</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0e1117;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(120deg,#0f2027,#203a43,#2c5364);
   color: #fff;
-  text-align: center;
 }
 
 header {
-  padding: 25px;
-  background: #161b22;
-  border-bottom: 1px solid #30363d;
+  padding: 30px;
+  text-align: center;
+  background: rgba(0,0,0,0.5);
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
 
 header h1 {
   margin: 0;
+  font-size: 32px;
 }
 
-/* زر تسجيل الدخول */
-#login-btn {
+.login-btn {
   margin-top: 20px;
-  padding: 14px 28px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: none;
+  padding: 14px 30px;
   background: #5865F2;
-  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  color: #fff;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
 }
 
-#login-btn i {
-  font-size: 20px;
-}
-
-#login-btn:hover {
-  background: #4752c4;
-}
-
-#user-area {
-  display: none;
-  padding: 30px;
-}
-
-#username {
-  margin-bottom: 25px;
-  opacity: 0.9;
-}
-
-/* السيارات */
-#cars {
+.container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-  gap: 20px;
-  max-width: 1100px;
-  margin: auto;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: 30px;
 }
 
 .car {
-  background: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
   padding: 15px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 
 .car img {
   width: 100%;
-  height: 130px;
+  height: 150px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 15px;
 }
 
 .car h3 {
-  margin: 10px 0;
-}
-
-.car input {
-  width: 100%;
-  padding: 6px;
-  border-radius: 6px;
-  border: none;
-  font-size: 13px;
+  margin: 15px 0;
 }
 
 .car button {
-  margin-top: 10px;
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 12px 20px;
+  border-radius: 10px;
   border: none;
-  background: #238636;
-  color: white;
-  font-size: 15px;
+  font-weight: bold;
+  background: #00f2fe;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
 }
 
-.car button:hover {
-  background: #2ea043;
-}
-
-#message {
-  margin-top: 20px;
-  color: #7CFF7C;
+.car button:disabled {
+  background: gray;
+  cursor: not-allowed;
 }
 </style>
 </head>
@@ -124,120 +86,89 @@ header h1 {
 <body>
 
 <header>
-  <h1> MC سيارات </h1>
-  <button id="login-btn">
-    <i class="fa-brands fa-discord"></i>
-    تسجيل دخول عبر Discord
-  </button>
+  <h1>🚗 متجر سيارات السيرفر</h1>
+  <button class="login-btn" onclick="loginDiscord()">تسجيل دخول دسكورد</button>
 </header>
 
-<div id="user-area">
-  <p id="username"></p>
-
-  <div id="cars">
-
-    <div class="car">
-      <img src="https://i.ibb.co/7vVbR1G/car1.jpg">
-      <h3><i class="fa-solid fa-car"></i> سيارة A</h3>
-      <input class="img-input" value="https://i.ibb.co/7vVbR1G/car1.jpg">
-      <button class="order-btn" data-name="سيارة A">
-        <i class="fa-solid fa-cart-shopping"></i>
-        طلب السيارة
-      </button>
-    </div>
-
-    <div class="car">
-      <img src="https://i.ibb.co/3WbFG7g/car2.jpg">
-      <h3><i class="fa-solid fa-car-side"></i> سيارة B</h3>
-      <input class="img-input" value="https://i.ibb.co/3WbFG7g/car2.jpg">
-      <button class="order-btn" data-name="سيارة B">
-        <i class="fa-solid fa-cart-shopping"></i>
-        طلب السيارة
-      </button>
-    </div>
-
-    <div class="car">
-      <img src="https://i.ibb.co/Yc5QZ7r/car3.jpg">
-      <h3><i class="fa-solid fa-truck"></i> سيارة C</h3>
-      <input class="img-input" value="https://i.ibb.co/Yc5QZ7r/car3.jpg">
-      <button class="order-btn" data-name="سيارة C">
-        <i class="fa-solid fa-cart-shopping"></i>
-        طلب السيارة
-      </button>
-    </div>
-
-  </div>
-
-  <div id="message"></div>
-</div>
+<div class="container" id="cars"></div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+/* ========= عدّل فقط هنا ========= */
+const CLIENT_ID = "1462902207329468562";
+const REDIRECT_URI = "https://mccity019-droid.github.io/";
+const WEBHOOK = "https://discord.com/api/webhooks/1462906362995675269/dpM3M1eBzKaA3839W-2wQJ1KAsN9GfGu-zuvzxKp32ZqyiLG2AAEHDdOqS6JEh7NzfHj";
+/* =============================== */
 
-const CLIENT_ID = '1462902207329468562';
-const REDIRECT_URI = 'https://mccity019-droid.github.io/';
-const WEBHOOK = 'https://discord.com/api/webhooks/1462906362995675269/dpM3M1eBzKaA3839W-2wQJ1KAsN9GfGu-zuvzxKp32ZqyiLG2AAEHDdOqS6JEh7NzfHj';
+let sent = false;
 
-let ordered = false;
-
-// تسجيل الدخول (نفس القديم)
-document.getElementById("login-btn").onclick = function () {
-  location.href =
-    "https://discord.com/api/oauth2/authorize" +
-    "?client_id=" + CLIENT_ID +
-    "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) +
-    "&response_type=token" +
-    "&scope=identify";
-};
-
-// قراءة التوكن
-if (location.hash) {
-  const p = new URLSearchParams(location.hash.substring(1));
-  const token = p.get("access_token");
-  if (token) {
-    fetch("https://discord.com/api/users/@me", {
-      headers: { Authorization: "Bearer " + token }
-    })
-    .then(r => r.json())
-    .then(u => {
-      document.getElementById("login-btn").style.display = "none";
-      document.getElementById("user-area").style.display = "block";
-      document.getElementById("username").innerText =
-        "مرحباً " + u.username + "#" + u.discriminator;
-    });
-  }
+function loginDiscord() {
+  const url =
+    `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}` +
+    `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
+    `&response_type=token&scope=identify`;
+  window.location.href = url;
 }
 
-// الطلب (نفس القديم)
-document.querySelectorAll(".order-btn").forEach(btn => {
-  btn.onclick = function () {
-    if (ordered) {
-      document.getElementById("message").innerText =
-        "تم إرسال طلبك مسبقًا، أكمل داخل الديسكورد.";
-      return;
-    }
+function getToken() {
+  const hash = window.location.hash;
+  if (!hash) return null;
+  const params = new URLSearchParams(hash.substring(1));
+  return params.get("access_token");
+}
 
-    const car = btn.dataset.name;
-    const img = btn.parentElement.querySelector(".img-input").value;
+async function getUser(token) {
+  const res = await fetch("https://discord.com/api/users/@me", {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return res.json();
+}
 
-    fetch(WEBHOOK, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        content: "طلب سيارة جديد\n" +
-                 "المستخدم: " + document.getElementById("username").innerText +
-                 "\nالسيارة: " + car,
-        embeds: [{ title: car, image: { url: img } }]
-      })
-    }).then(() => {
-      ordered = true;
-      document.getElementById("message").innerText =
-        "تم إرسال الطلب بنجاح.";
-    });
-  };
+const cars = ["A","B","C","D","E","F","G"];
+const container = document.getElementById("cars");
+
+cars.forEach(c => {
+  const div = document.createElement("div");
+  div.className = "car";
+  div.innerHTML = `
+    <img src="https://via.placeholder.com/400x200?text=Car+${c}">
+    <h3>سيارة ${c}</h3>
+    <button onclick="order('${c}',this)">طلب السيارة</button>
+  `;
+  container.appendChild(div);
 });
 
-});
+async function order(car, btn) {
+  if (sent) return;
+  const token = getToken();
+  if (!token) {
+    alert("سجّل دخول دسكورد أولاً");
+    return;
+  }
+
+  sent = true;
+  btn.disabled = true;
+  btn.innerText = "تم الإرسال";
+
+  const user = await getUser(token);
+
+  await fetch(WEBHOOK,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({
+      embeds:[{
+        title:"🚗 طلب سيارة جديد",
+        color:3447003,
+        fields:[
+          { name:"المستخدم", value:`${user.username}#${user.discriminator}` },
+          { name:"ID", value:user.id },
+          { name:"السيارة", value:`سيارة ${car}` }
+        ]
+      }]
+    })
+  });
+
+  alert("تم إرسال الطلب للإدارة");
+}
 </script>
 
 </body>
